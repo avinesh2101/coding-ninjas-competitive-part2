@@ -1,0 +1,1 @@
+{"name":"Local: lightBulb","url":"e:\\coding ninjas\\code\\11Adhoc\\lightBulb.cpp","tests":[{"id":1612987371419,"input":"6 3 100\n010101","output":"106"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\coding ninjas\\code\\11Adhoc\\lightBulb.cpp","group":"local","local":true}
