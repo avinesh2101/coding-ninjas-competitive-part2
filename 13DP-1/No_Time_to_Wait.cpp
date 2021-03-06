@@ -1,4 +1,5 @@
 #include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 int main()
@@ -11,6 +12,20 @@ int main()
     {
         cin>>a[i];
     }
-
+    int m= *max_element (a,a+n);
     
+
+    if(h<=x)
+    {
+        cout<<"yEs"<<endl;
+
+    }
+    else if(x + m>=h)
+    {
+        cout<<"yEs"<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
+    }
+
 }
