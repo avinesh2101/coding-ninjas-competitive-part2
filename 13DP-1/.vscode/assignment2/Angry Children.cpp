@@ -41,23 +41,45 @@ using namespace std;
 #define ll long long
 int main()
 {
-    int n,k;
-    int *x= new int[n];
-    for(int i=0;i<n;i++)
-    {
-        cin>>x[i];
+   ll n, k;
+    cin >> n >> k;
+
+    ll *arr = new ll[n];
+    for(ll i = 0; i < n; i++)
+	{
+		cin>>arr[i];
+	}
+
+    sort(arr, arr+n);
+
+
+    ll *sum = new ll[n];
+    sum[0] = arr[0];
+    for(int i = 1; i < n; i++)// i have to make this cumulative sum array because k can range from 0 to 10^5, so using two loops will give TLE.
+	{
+		sum[i] = sum[i-1]+arr[i];
+	}
+    
+    
+    //     lets take first k elements 
+      ll minUnfairness = 0;
+    int start = 0;
+    int end = k-1;
+    for(int a = 1; a <= end; a++){
+        minUnfairness += a*arr[a]-sum[a-1]; //target = target + (x[i+1]-x[i]) + (x[i+1] - x[i-1]) + ...........+ (x[i+1] - x[1])
     }
-    
-    sort(x,x+n);
-    ll target=0,new_target=0,res=0;
-    
-//     lets take first k elements 
-    for(int i=0;i<k;k++)
-    {
-        
+
+    ll currUnfairness = minUnfairness;
+    start++; end++;
+    while(end < n){
+        currUnfairness += (end-start)*arr[end]-sum[end-1]+sum[start-1];
+        currUnfairness -= sum[end-1]-sum[start-1]-(end-start)*arr[start-1];
+        minUnfairness=min(minUnfairness, currUnfairness);
+        start++;
+        end++;
     }
-    
-    return 0;
+
+    cout << minUnfairness << endl;
 }
 
 
