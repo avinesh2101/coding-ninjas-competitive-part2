@@ -1,111 +1,61 @@
-#include<iostream>
-#include<climits>
-#include<bits/stdc++.h>
-#include<algorithm>
-using namespace std;
-
-int minval(int*a,int n)
-{
-    int m =INT_MAX;
-    for(int i=0;i<n;i++)
-    {
-         m = min(a[i],m);
-    }
-
-    return m;
-}
-
+#include <bits/stdc++.h> 
+#define mod 1000000007
+#define inf 1000000000000LL
+#define root2 1.41421
+#define root3 1.73205 
+#define pi 3.14159
+#define MAX 100001 
+#define cntbit __builtin_popcountll 
+#define ll long long int 
+#define PII pair<int, int> 
+#define f first 
+#define s second 
+#define mk make_pair 
+#define PLL pair<ll, ll> 
+#define gc getchar 
+#define pb push_back 
+using namespace std; 
+vector<vector<int> > A, B;
+int n, m;
 int main()
 {
-	int n,m;
-	cin>>n>>m;
-//----------basic requirements---
-	int*row1 = new int [m]; //replace input  2d array
-	int*row2 = new int [m];
-
-	int*dp1 = new int [m];//replace dp 2d array
-	int*dp2 = new int [m];
-
-	int*res = new int [n];
-// --------base case--------
-    for(int i=0;i<m;i++)
+    cin>>n>>m;
+    vector<int> dp(n);
+    int i, j;
+    for(i=0;i<n;i++)
     {
-        cin>>row1[i];
+        vector<int>v(m), v2(m, 0);
+        for(j=0;j<m;j++)cin>>v[j];
+        A.pb(v); 
+        B.pb(v2); 
+        
+    } 
+    for(i=0;i<m;i++)
+    { 
+        B[0][i]=0; 
+        for(j=1;j<n;j++) 
+        {
+            if(A[j][i]>=A[j-1][i])
+            B[j][i]=B[j-1][i]; 
+            else B[j][i]=j;
+            }
     }
-
-    for(int i=0;i<m;i++)
+    for(i=0;i<n;i++) 
     {
-        cin>>row2[i];
-    }
-
-    for(int i=0;i<m;i++)
+        dp[i]=i;
+        for(j=0;j<m;j++)
+        dp[i]=min(dp[i], B[i][j]); 
+        //cout<<i<<" "<<dp[i]<<endl;
+    } 
+    int q, l, r;
+    cin>>q;
+    while(q--)
     {
-        dp1[i]=0;
+        cin>>l>>r;
+        l--;
+        r--; 
+        if(dp[r]<=l) 
+        cout<<"Yes\n";
+        else cout<<"No\n";
     }
-
-    for(int i=0;i<m;i++)
-    {
-        if(row2[i] >= row1[i])
-        {
-            dp2[i]=0;
-        }
-        else{
-            dp2[i]=1;
-        }
-    }
-
-    res[0] = minval(dp1,m);
-    res[1] = minval(dp2,m);
-//---------general sol -----
-    for(int i=2;i<n;i++)
-    {
-    	  for(int j=0;j<m;j++)  //toggling
-        {
-            dp1[j]=dp2[j];
-
-        }
-        for(int j=0;j<m;j++)  //toggling
-        {
-            row1[j]=row2[j];
-        }
-        for(int j=0;j<m;j++)
-        {
-            cin>>row2[j];
-        }
-         
-       
-       
-       //-------------------
-
-       for(int j=0;j<m;j++)
-       {
-           if(row1[j] <= row2[j])
-           { 
-               dp2[j]=dp1[j];
-           }
-           else{
-               dp2[j]=i;
-           }
-       }
-        res[i]=minval(dp2,m);
-
-
-    }
-// ----------queries--------
-	int k;
-	cin>>k;
-	while(k--)
-	{
-		int l,r;
-		cin>>l>>r;
-        if(res[r-1]<l)
-        {
-            cout<<"Yes"<<endl;
-        }
-      else{
-        cout<<"No"<<endl;
-        }
-
-	}
-	return 0;
 }

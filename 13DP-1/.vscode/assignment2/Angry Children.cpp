@@ -36,3 +36,28 @@
 // 10, 20 and 30 candies.So unfairness will be
 //  |10-20| + |20-30| + |10-30| = 40. We can verify
 //   that it will be minimum in this way.
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main()
+{
+    int n,k;
+    int *x= new int[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>x[i];
+    }
+    
+    sort(x,x+n);
+    ll target=0,new_target=0,res=0;
+    
+//     lets take first k elements 
+    for(int i=0;i<k;k++)
+    {
+        
+    }
+    
+    return 0;
+}
+
+
