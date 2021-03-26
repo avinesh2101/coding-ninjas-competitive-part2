@@ -61,7 +61,7 @@ int main()
             if(j>0)
             {
                 o1=arr[i][j]+dp[i-1][j-1];
-            }
+            }        //int o1 =if(j>0)?arr[i][j]+dp[i-1][j-1]:INT_MAX;
             o2=arr[i][j]+dp[i-1][j];
             if(j<m-1)
             {
