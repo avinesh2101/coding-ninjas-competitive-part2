@@ -37,3 +37,80 @@
 // 87
 // 1040
 // 0
+
+
+// Maximum profit by buying and selling a share at most k times
+
+
+
+
+
+// tc : O(n^2.k)
+// as:O(nk)
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int *price,int k,int n)
+ {
+    int**dp  = new int*[k+1];
+    for(int i =0;i<=k;i++)
+    {
+        dp[i] = new int [n+1];
+    }
+    
+    for(int i=0;i<=k;i++)
+    {
+        dp[i][0]=0;
+    }
+    
+    for(int i=0;i<=n;i++)
+    {
+        dp[0][i]=0;
+    }
+    
+    for(int i=1;i<=k;i++)//transactions
+    {
+       for(int j=1;j<n;j++)//sell vale ka index
+        {
+       		 int o1=dp[i][j-1];
+             int o2 =INT_MIN;
+           for(int p=0;p<j;p++)//buy vale ka index
+           {
+              
+               o2 = max(o2, price[j]-price[p]+dp[i-1][p]);
+           }
+           
+           dp[i][j] = max(o1,o2);
+       }
+    }
+
+    return dp[k][n - 1];
+    
+    
+}
+
+
+//tc: O(nk)
+
+
+
+
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int k,n;
+        cin>>k>>n;
+        int prices[n];
+        for(int i=0;i<n;i++)
+        {
+            cin>>prices[i];
+        }
+        
+        cout<<solve(prices,k,n)<<'\n';
+    }
+    return 0;
+}
